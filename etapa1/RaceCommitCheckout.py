@@ -12,10 +12,9 @@ if not Validator.validRepo(name_folder):
     os.system("git clone" + url_project)
 
 
+path_project = "/Users/felipeveloso/projetos/" + name_folder
 
-
-
-repo = Repo(os.path.join(path_projeto))
+repo = Repo(os.path.join(path_project))
 repoGit = repo.git
 
 commit1  = repo.commit("248a2c52cff287239abe0e547b9309617436dfd8")
