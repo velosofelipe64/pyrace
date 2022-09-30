@@ -2,8 +2,20 @@ from this import d
 from traceback import print_tb
 from git import Repo
 import os 
+import Validator
 
-repo = Repo(os.path.join("/Users/felipeveloso/projetos/race"))
+
+url_project = "https://github.com/velosofelipe64/race"
+name_folder = url_project.split("/")[-1]
+
+if not Validator.validRepo(name_folder):
+    os.system("git clone" + url_project)
+
+
+
+
+
+repo = Repo(os.path.join(path_projeto))
 repoGit = repo.git
 
 commit1  = repo.commit("248a2c52cff287239abe0e547b9309617436dfd8")
