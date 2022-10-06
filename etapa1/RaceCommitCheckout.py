@@ -3,35 +3,38 @@ from traceback import print_tb
 from git import Repo
 import os 
 import Validator
+import Interpreter
+import time
+
+def checkout(url):
+    name_folder = url.split("/")[-1]
+
+    if not Validator.validRepo(name_folder):
+        print(name_folder)
+        os.system("")
+        os.system("cd /Users/felipeveloso/projetos/ && git clone " + url)
 
 
-url_project = "https://github.com/velosofelipe64/race"
-name_folder = url_project.split("/")[-1]
+    path_project = "/Users/felipeveloso/projetos/" + name_folder
 
-if not Validator.validRepo(name_folder):
-    os.system("git clone" + url_project)
+    repo = Repo(os.path.join(path_project))
+    repoGit = repo.git
 
+    commit1  = repo.commit("248a2c52cff287239abe0e547b9309617436dfd8") #error
+    commit2 = repo.commit("5b13067ea902916265379203c2fe118c42545e99") #no error
 
-path_project = "/Users/felipeveloso/projetos/" + name_folder
+    errorPath = "race/src/main/java/org/example/App.java"
+    pomPath = "/Users/felipeveloso/projetos/race/race"
 
-repo = Repo(os.path.join(path_project))
-repoGit = repo.git
+    repoGit.checkout("248a2c52cff287239abe0e547b9309617436dfd8")
+    os.system("cd " + pomPath + "&& mvn compile > /Users/felipeveloso/projetos/TCC/pyrace/etapa1/logMaven.txt")
+    error_file, position, type_error, symbol = Interpreter.interpreter()
 
-commit1  = repo.commit("248a2c52cff287239abe0e547b9309617436dfd8")
-commit2 = repo.commit("5b13067ea902916265379203c2fe118c42545e99")
+    repoGit.checkout(commit2)
 
-errorPath = "race/src/main/java/org/example/App.java"
-pomPath = "/Users/felipeveloso/projetos/race/race"
+    javaFile = open(os.path.join(error_file),"r")
 
-repoGit.checkout("248a2c52cff287239abe0e547b9309617436dfd8")
-os.system("cd " + pomPath + "&& mvn compile > logMaven.txt")
-
-
-
-# for diff in diff_index:
-#     print(diff)
-#     print(diff.change_type)
-#     print(f"{diff.a_path} -> {diff.b_path}")
+    print(javaFile.read())
 
 
 
