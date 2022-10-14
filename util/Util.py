@@ -1,13 +1,13 @@
 import os
 from weakref import ref
-
+import git 
 
 
 def validRepo(name_folder):
 
     projetos_git = "/Users/felipeveloso/projetos/"
-    os.system("cd " + projetos_git + name_folder + "/ && ls -la > /Users/felipeveloso/projetos/TCC/pyrace/etapa1/repo_validator.txt" )
-    ref_arquivo = open("repo_validator.txt","r")
+    os.system("cd " + projetos_git + name_folder + "/ && ls -la > /Users/felipeveloso/projetos/TCC/pyrace/util/repo_validator.txt")
+    ref_arquivo = open("/Users/felipeveloso/projetos/TCC/pyrace/util/repo_validator.txt","r")
     dados = ref_arquivo.read()
     
     try:
@@ -20,3 +20,8 @@ def validRepo(name_folder):
             ref_arquivo.truncate()
     except Exception:
         return False
+
+class GitTools:
+
+    repo = git.Repo()
+    repoGit = repo.git

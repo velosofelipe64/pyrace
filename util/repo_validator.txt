@@ -1,6 +1,7 @@
-total 8
-drwxr-xr-x   5 felipeveloso  staff   160  5 Out 17:19 .
+total 24
+drwxr-xr-x   6 felipeveloso  staff   192  6 Out 22:43 .
 drwxr-xr-x  41 felipeveloso  staff  1312  5 Out 17:19 ..
+-rw-r--r--@  1 felipeveloso  staff  6148  6 Out 22:43 .DS_Store
 drwxr-xr-x  12 felipeveloso  staff   384  5 Out 23:17 .git
 -rw-r--r--   1 felipeveloso  staff     1  5 Out 17:19 README.md
 drwxr-xr-x   7 felipeveloso  staff   224  5 Out 17:19 race
