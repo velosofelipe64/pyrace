@@ -1,0 +1,16 @@
+diff --git a/race/src/main/java/org/example/App.java b/race/src/main/java/org/example/App.java
+index 14e764d..1c79709 100644
+--- a/race/src/main/java/org/example/App.java
++++ b/race/src/main/java/org/example/App.java
+@@ -18,9 +18,9 @@ public class App
+ 
+ 
+ 
+-    public static int plusTen(int num){
++    public static int plusFive(int num){
+ 
+-        return num + 10;
++        return num + 5;
+     }
+ 
+ }

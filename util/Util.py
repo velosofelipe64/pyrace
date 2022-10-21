@@ -23,5 +23,7 @@ def validRepo(name_folder):
 
 class GitTools:
 
-    repo = git.Repo()
-    repoGit = repo.git
+   repo = git.Repo
+
+
+    
