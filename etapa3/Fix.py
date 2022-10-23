@@ -1,98 +1,77 @@
+from hashlib import new
 import os
 import git 
 import re
+import subprocess
 
-# def fix(error_file, position, type_error, symbol, path_of_project):
-error_file = "App.java"
-path_of_project = "/Users/felipeveloso/projetos/race"
-
-
-repository = git.Repo(os.path.join(path_of_project))
-# repoGit = repository.git()
-# commits = list(repo.iter_commits(repository))
-print(repository.head)
-
-# for c in commits:
-#     # print(c)
-#     files = os.system("cd "+ path_of_project+ " && git diff-tree --no-commit-id --name-only -r " + str(c))
-
-    # if error_file in files:
-        
-    # if type_error == 1:
-
-    #     Util.repoGit.checkout()
-
-    #     if "method" in symbol:
-    #         symbol = symbol.replace("method ","").strip()
-
-
-
-        
-    # javaFile = open(os.path.join(error_file),"r")
-
-    # print(javaFile.read())
-
-def isMethod(sign):
-    if "(" in sign and ")" in sign and "{" in sign:
-        return True
-    else:
-        return False
 
 def pre_fix(project_path, error_file, symbol): 
 
     head_commit = "HEAD"
-    git_diff_inline = ""
-    git_diff = ""
-  
+
     os.system('cd ' + project_path + ' && git log --pretty=%P -n 1 "' + head_commit + '" > /Users/felipeveloso/projetos/TCC/pyrace/etapa3/id_commit.txt')
 
     id_commit = open("/Users/felipeveloso/projetos/TCC/pyrace/etapa3/id_commit.txt", "r").readline()
 
     array_commits = []
-    if "," in id_commit:
-        array_commits = id_commit.split(",")
+    if " " in id_commit.strip():
+        array_commits = id_commit.split(" ")
     else:
         array_commits.append(id_commit)
 
     for i in array_commits:
 
-        # Teoriacamente isso deveria funcionar
-        # os.system('cd '+ project_path +' && git diff ' + str(i) + '/Users/felipeveloso/projetos/race/race/src/main/java/org/example/App.java > /Users/felipeveloso/projetos/TCC/pyrace/etapa3/git_diff.txt')
+        
+        bash = "sh bash_git_diff.sh " + project_path + " " + str(i).strip() + " " + error_file.replace(project_path+"/","")
+        subprocess.call(bash, shell=True)
     
         data = open("/Users/felipeveloso/projetos/TCC/pyrace/etapa3/git_diff.txt", "r")
 
         if data.readline() != None:
             break
-            
-    
-    
+                
    
     data = open("/Users/felipeveloso/projetos/TCC/pyrace/etapa3/git_diff.txt", "r")
     data_array = data.readlines()
-    for i in range(len(data_array)-1): 
+
+    count_adds = 0
+    for i in range(len(data_array)-1):
+        if len(data_array[i]) >= 2:
+            if (data_array[i][0] + data_array[i][1]) == "+ ":
+                count_adds = count_adds + 1
+
+    if count_adds == 0:
+        # Não ouve adição de um novo methodo, apenas remoção
+        # Remover metodo
+        with open(error_file, "r") as f:
+            lines = f.readlines()
+        with open(error_file, "w") as f:
+            for line in lines:
+                if symbol not in line.strip("\n"):
+                    f.write(line)
+
+    new_name = ""
+    for i in range(len(data_array)-1):    
         if symbol in data_array[i] and (data_array[i][0] + data_array[i][1]) == "- ":
-            print(symbol)
             sign = re.search("[(].*?[)]" , data_array[i])
-            # sign = re.search(r'(.*)',sign[0])
-            print(sign)
-        
-        # for i in range(len(diff)):
-        #     if symbol + "(" in diff[i]:
-                # if "+ " in diff[i+1] and isMethod(diff[i+1]):
-            # Validar a diferança pela assinatura no metodo (parametros)
-
-
             
-        # diff = re.findall(" @@ p.*", git_diff_inline)
-        # diff = re.findall("- .*?+ ",diff)
-        # print(diff)
+            if sign[0] in data_array[i+1] and (data_array[i+1][0] + data_array[i+1][1]) == "+ ":
+                # Extrair novo nome  fazer correção
+                new_name = data_array[i+1].replace("public","").replace("static","").replace("void","").replace("+","").strip()
+                new_name = re.findall(" (.*?)[(]",new_name)
+                
+                with open(error_file, "r") as f:
+                    lines = f.readlines()
+                with open(error_file, "w") as f:
+                    for line in lines:
+                        if symbol in line.strip("\n"):
+                            line = line.replace(symbol, new_name[0])
+                            f.write(line)
+                        else:
+                            f.write(line)
 
-        # diff = diff.split("+")
-        # if (len(diff) <= 1):
-        #     # apenas remover o metodo
-        
 
 
-pre_fix("/Users/felipeveloso/projetos/race", "App.java", "plusTen")
+pre_fix("/Users/felipeveloso/projetos/race", "/Users/felipeveloso/projetos/race/race/src/main/java/org/example/App.java", "plusTen")
 
 
