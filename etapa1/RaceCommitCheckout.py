@@ -3,7 +3,7 @@ from util import Util
 
 
 
-def checkout(url):
+def checkout(url, pomPath):
     # catching name of repository from URL
     name_folder = url.split("/")[-1]
 
@@ -19,3 +19,4 @@ def checkout(url):
 
     # Compiling .java
     os.system("cd " + pomPath + "&& mvn compile > /Users/felipeveloso/projetos/TCC/pyrace/logMaven.txt")
+    return path_project
