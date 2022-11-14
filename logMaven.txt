@@ -9,10 +9,11 @@
 [INFO] skip non existing resourceDirectory /Users/felipeveloso/projetos/race/race/src/main/resources
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.8.0:compile (default-compile) @ race ---
-[INFO] Nothing to compile - all classes are up to date
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /Users/felipeveloso/projetos/race/race/target/classes
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  0.221 s
-[INFO] Finished at: 2022-10-26T01:02:14-03:00
+[INFO] Total time:  0.626 s
+[INFO] Finished at: 2022-11-03T17:38:09-03:00
 [INFO] ------------------------------------------------------------------------

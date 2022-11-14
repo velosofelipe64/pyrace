@@ -58,28 +58,27 @@ def fix_type_one(project_path, error_file, symbol, position):
                 for line in lines:
                     if symbol not in line.strip("\n"):
                         f.write(line)
-
-        new_name = ""
-        test = open(error_file,"r")
-        print(test.readlines()[14])
-        for i in range(len(data_array)-1):    
-            if symbol in data_array[i] and (data_array[i][0] + data_array[i][1]) == "- ":
-                sign = re.search("[(].*?[)]" , data_array[i])
-                
-                if sign[0] in data_array[i+1] and (data_array[i+1][0] + data_array[i+1][1]) == "+ ":
-                    # Extrair novo nome  fazer correção
-                    new_name = data_array[i+1].replace("public","").replace("static","").replace("void","").replace("+","").strip()
-                    new_name = re.findall(" (.*?)[(]",new_name)
+        else:
+            new_name = ""
+            
+            for i in range(len(data_array)-1):    
+                if symbol in data_array[i] and (data_array[i][0] + data_array[i][1]) == "- ":
+                    sign = re.search("[(].*?[)]" , data_array[i])
                     
-                    with open(error_file, "r") as f:
-                        lines = f.readlines()
-                    with open(error_file, "w") as f:
-                        for line in lines:
-                            if symbol in line.strip("\n"):
-                                line = line.replace(symbol, new_name[0])
-                                f.write(line)
-                            else:
-                                f.write(line)
+                    if sign[0] in data_array[i+1] and (data_array[i+1][0] + data_array[i+1][1]) == "+ ":
+                        # Extrair novo nome  fazer correção
+                        new_name = data_array[i+1].replace("public","").replace("static","").replace("void","").replace("+","").strip()
+                        new_name = re.findall(" (.*?)[(]",new_name)
+                        
+                        with open(error_file, "r") as f:
+                            lines = f.readlines()
+                        with open(error_file, "w") as f:
+                            for line in lines:
+                                if symbol in line.strip("\n"):
+                                    line = line.replace(symbol, new_name[0])
+                                    f.write(line)
+                                else:
+                                    f.write(line)
 
 
 

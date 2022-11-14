@@ -13,9 +13,6 @@ def checkout(url, pomPath):
 
     # Path where the repository was cloned
     path_project = "/Users/felipeveloso/projetos/" + name_folder
-    
-    # pomPath of Maven 
-    pomPath = "/Users/felipeveloso/projetos/race/race"
 
     # Compiling .java
     os.system("cd " + pomPath + "&& mvn compile > /Users/felipeveloso/projetos/TCC/pyrace/logMaven.txt")
