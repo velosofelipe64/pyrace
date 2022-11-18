@@ -11,6 +11,9 @@ def fix(project_path, error_file, symbol, position, type_error):
         return fix_type_one(project_path, error_file, symbol, position)
 
 def fix_type_one(project_path, error_file, symbol, position):
+
+    cwd_atual = os.getcwd() + "/etapa3"
+    
     if "method" in symbol:
 
         symbol_sign = symbol.replace("method ", "")
@@ -18,9 +21,9 @@ def fix_type_one(project_path, error_file, symbol, position):
         
         head_commit = "HEAD"
 
-        os.system('cd ' + project_path + ' && git log --pretty=%P -n 1 "' + head_commit + '" > /Users/felipeveloso/projetos/TCC/pyrace/etapa3/id_commit.txt')
+        os.system('cd ' + project_path + ' && git log --pretty=%P -n 1 "' + head_commit + '" > ' + cwd_atual +'/id_commit.txt')
 
-        id_commit = open("/Users/felipeveloso/projetos/TCC/pyrace/etapa3/id_commit.txt", "r").readline()
+        id_commit = open(cwd_atual + "/id_commit.txt", "r").readline()
 
         array_commits = []
         if " " in id_commit.strip():
@@ -31,16 +34,16 @@ def fix_type_one(project_path, error_file, symbol, position):
         for i in array_commits:
 
             
-            bash = "sh /Users/felipeveloso/projetos/TCC/pyrace/etapa3/bash_git_diff.sh " + project_path + " " + str(i).strip() + " " + error_file.replace(project_path+"/","")
+            bash = "sh "+ cwd_atual +"/bash_git_diff.sh " + project_path + " " + str(i).strip() + " " + error_file.replace(project_path+"/","")
             subprocess.call(bash, shell=True)
         
-            data = open("/Users/felipeveloso/projetos/TCC/pyrace/etapa3/git_diff.txt", "r")
+            data = open(cwd_atual + "/git_diff.txt", "r")
 
             if data.readline() != None:
                 break
                     
     
-        data = open("/Users/felipeveloso/projetos/TCC/pyrace/etapa3/git_diff.txt", "r")
+        data = open(cwd_atual + "/git_diff.txt", "r")
         data_array = data.readlines()
 
         count_adds = 0

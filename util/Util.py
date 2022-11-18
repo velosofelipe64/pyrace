@@ -3,11 +3,12 @@ from weakref import ref
 import git 
 
 
-def validRepo(name_folder):
+def validRepo(name_folder, caminho_ospedado):
 
-    projetos_git = "/Users/felipeveloso/projetos/"
-    os.system("cd " + projetos_git + name_folder + "/ && ls -la > /Users/felipeveloso/projetos/TCC/pyrace/util/repo_validator.txt")
-    ref_arquivo = open("/Users/felipeveloso/projetos/TCC/pyrace/util/repo_validator.txt","r")
+    cwd_atual = os.getcwd() + "/util"
+    projetos_git = caminho_ospedado + "/"
+    os.system("cd " + projetos_git + name_folder + "/ && ls -la > " + cwd_atual + "/repo_validator.txt")
+    ref_arquivo = open(cwd_atual + "/repo_validator.txt","r")
     dados = ref_arquivo.read()
     
     try:

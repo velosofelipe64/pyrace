@@ -3,17 +3,17 @@ from util import Util
 
 
 
-def checkout(url, pomPath):
+def checkout(url, pomPath, caminho_ospedado):
     # catching name of repository from URL
     name_folder = url.split("/")[-1]
 
     # Validation of Git repository
-    if not Util.validRepo(name_folder): 
-        os.system("cd /Users/felipeveloso/projetos/ && git clone " + url)
+    if not Util.validRepo(name_folder, caminho_ospedado): 
+        os.system("cd " + caminho_ospedado + " && git clone " + url)
 
     # Path where the repository was cloned
-    path_project = "/Users/felipeveloso/projetos/" + name_folder
+    path_project = caminho_ospedado + "/" +name_folder
 
     # Compiling .java
-    os.system("cd " + pomPath + "&& mvn compile > /Users/felipeveloso/projetos/TCC/pyrace/logMaven.txt")
+    os.system("cd " + pomPath + "&& mvn compile > " + caminho_ospedado + "/pyrace")
     return path_project

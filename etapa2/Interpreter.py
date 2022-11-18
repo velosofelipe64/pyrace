@@ -1,8 +1,8 @@
 import re
 
 
-def interpreter():
-    dados = open("/Users/felipeveloso/projetos/TCC/pyrace/logMaven.txt","r")
+def interpreter(cwd):
+    dados = open(cwd + "/logMaven.txt","r")
 
     type_error = -1
     error = ""
