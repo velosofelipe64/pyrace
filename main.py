@@ -9,18 +9,29 @@ cwd = os.getcwd()
 
 caminho_ospedado = cwd.replace('/pyrace', '')
 
-logMaven = open(cwd + "/logMaven.txt", "a")
+# logMaven = open(cwd + "/etapa1/logMaven.txt", "a")
 
 
 
-pomPath = sys.argv[1] #"/Users/felipeveloso/projetos/race/race"
-url = sys.argv[2] #"https://github.com/velosofelipe64/race"
+# pomPath = sys.argv[1] #"/Users/felipeveloso/projetos/race/race"
+url = sys.argv[1] #"https://github.com/velosofelipe64/race"
 
-def main(pomPath, url, caminho_ospedado, cwd):
-    path_project = RaceCommitCheckout.checkout(url, pomPath, caminho_ospedado)
-
+def main(url, caminho_ospedado, cwd):
+    path_project, error_exist, pomPath = RaceCommitCheckout.checkout(url, caminho_ospedado)
+    
+    if error_exist == False:
+        print("Nenhum erro encontrado!")
+        return True
+    
     error_file, position, type_error, symbol = Interpreter.interpreter(cwd)
     
+    if error_file == None or symbol == None:
+        print("########################################")
+        print("###### Algo inesperado aconteceu  ######")
+        print("########################################")
+        
+        return False
+
     Fix.fix(path_project, error_file, symbol, position, type_error)
 
     was_fixed, is_same = FixCommit.new_commit(pomPath, path_project, url, error_file, cwd)
@@ -31,4 +42,4 @@ def main(pomPath, url, caminho_ospedado, cwd):
         return was_fixed
 
         
-print(main(pomPath, url, caminho_ospedado, cwd))
+print(main(url, caminho_ospedado, cwd))

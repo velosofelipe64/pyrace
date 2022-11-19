@@ -2,7 +2,7 @@ import re
 
 
 def interpreter(cwd):
-    dados = open(cwd + "/logMaven.txt","r")
+    dados = open(cwd + "/etapa1/logMaven.txt","r")
 
     type_error = -1
     error = ""
