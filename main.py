@@ -9,11 +9,7 @@ cwd = os.getcwd()
 
 caminho_ospedado = cwd.replace('/pyrace', '')
 
-# logMaven = open(cwd + "/etapa1/logMaven.txt", "a")
 
-
-
-# pomPath = sys.argv[1] #"/Users/felipeveloso/projetos/race/race"
 url = sys.argv[1] #"https://github.com/velosofelipe64/race"
 
 def main(url, caminho_ospedado, cwd):

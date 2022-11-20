@@ -16,10 +16,10 @@ def checkout(url, caminho_ospedado):
     # Path where the repository was cloned
     path_project = caminho_ospedado + "/" +name_folder
     pomPath = caminho_ospedado + "/" +name_folder + "/" +name_folder + "/"
-    print(pomPath)
+  
     # Compiling .java
-    os.system("cd " + pomPath + " && mvn compile > " + caminho_ospedado + "/pyrace/etapa1/logMaven.txt")
-    print("cd " + pomPath + " && mvn compile > " + caminho_ospedado + "/pyrace/etapa1/logMaven.txt")
+    os.system("cd " + pomPath + " && mvn compile -l " + caminho_ospedado + "/pyrace/etapa1/logMaven.txt")
+    
     dados = open(caminho_ospedado + "/pyrace/etapa1/logMaven.txt","r")
     
     for d in dados.readlines():

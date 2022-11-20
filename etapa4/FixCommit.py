@@ -6,7 +6,7 @@ from etapa2 import Interpreter
 def new_commit(pomPath, project_path, url, error_file, cwd):
 
     # Compiling .java
-    os.system("cd " + pomPath + "&& mvn compile > "+ cwd +"/etapa1/logMaven.txt")
+    os.system("cd " + pomPath + "&& mvn compile -l "+ cwd +"/etapa1/logMaven.txt")
     dados = open(cwd + "/etapa1/logMaven.txt","r")
     
     for d in dados.readlines():
